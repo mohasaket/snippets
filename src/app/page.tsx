@@ -1,3 +1,15 @@
+import { db } from "@/db";
 export default async function Home() {
-  return <div>home page </div>;
+  const snippets = await db.snippet.findMany();
+
+  const renderSnippets=snippets.map((snippet)=>{
+    return(
+      <div key={snippet.id}>
+        {snippet.title}
+        {snippet.code}
+      </div>
+      
+    )
+  })
+  return <div>{renderSnippets} </div>;
 }
